@@ -56,10 +56,16 @@
 			{
 				"fullscreen": false,
 				"height": 600,
+				"width": 800,
 				"resizable": true,
 				"title": "RustCelik",
-				"width": 800
+				"transparent": true
 			}
-		]
+		],
+		"systemTray": {
+			"iconPath": "icons/icon.png",
+			"iconAsTemplate": true,
+			"menuOnLeftClick": false
+		}
 	}
 }
