@@ -10,7 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"tauri": "tauri"
+		"tauri": "tauri",
+		"localhost": "./node_modules/.bin/servor dist index.html 8080 --reload"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",

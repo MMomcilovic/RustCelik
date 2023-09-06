@@ -20,7 +20,12 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.4.0", features = ["system-tray"] }
 pcsc = { version = "2.8.0" }
 tauri-plugin-positioner = { version = "1.0.4", features = ["system-tray"] }
-
+idreader_lib = { git = "https://github.com/lazarbankovic/serbianIdReader", branch = "refactor_to_lib"}
+pdfexporter_lib = { git = "https://github.com/lazarbankovic/serbianIdReader", branch = "refactor_to_lib"}
+image = { version = "0.24.7", package = "image" }
+image_crate = { version = "0.23.14", package = "image" }
+viuer = { version = "0.6"}
+clap = { version = "3.2.25", features = ["derive"] }
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
 # If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.

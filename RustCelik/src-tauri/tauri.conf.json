@@ -56,10 +56,9 @@
 			{
 				"fullscreen": false,
 				"height": 600,
-				"width": 800,
-				"resizable": true,
-				"title": "RustCelik",
-				"transparent": true
+				"width": 650,
+				"resizable": false,
+				"title": "RustCelik"
 			}
 		],
 		"systemTray": {
