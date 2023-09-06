@@ -154,7 +154,7 @@
 						type="text"
 						id="first_name"
 						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[70%] p-0.5 pl-2 cursor-text"
-						value="M"
+						value={info.Sex}
 						disabled
 					/>
 				</div>
@@ -170,7 +170,7 @@
 				type="text"
 				id="first_name"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[90%] p-0.5 pl-2 mx-2 cursor-text"
-				value="ПС У ТИТЕЛУ"
+				value={info.IssuingAuthority}
 				disabled
 			/>
 		</div>

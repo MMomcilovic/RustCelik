@@ -3,7 +3,6 @@
 
 use idreader_lib::module_reader::reader::PersonalId;
 use pcsc::*;
-use std::thread;
 use tauri::{CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, Window};
 use tauri_plugin_positioner::{Position, WindowExt};
 use viuer::Config;
@@ -165,53 +164,53 @@ fn card_info(window: Window) {
     });
 }
 
-fn look_for_readers() {
-    // Establish a PC/SC context.
-    let ctx = match Context::establish(Scope::User) {
-        Ok(ctx) => ctx,
-        Err(err) => {
-            eprintln!("Failed to establish context: {}", err);
-            return;
-        }
-    };
-    let mut old_readers = 0;
-    loop {
-        // List available readers.
-        let mut readers_buf = [0; 2048];
-        match ctx.list_readers_len() {
-            Ok(len) => {
-                if len == old_readers {
-                    std::thread::sleep(std::time::Duration::from_secs(1));
-                    continue;
-                }
-                old_readers = len;
-            }
-            Err(err) => {
-                eprintln!("Failed to list readers: {}", err);
-                continue;
-            }
-        }
-        let mut readers = match ctx.list_readers(&mut readers_buf) {
-            Ok(readers) => readers,
-            Err(err) => {
-                eprintln!("Failed to list readers: {}", err);
-                continue;
-            }
-        };
+// fn look_for_readers() {
+//     // Establish a PC/SC context.
+//     let ctx = match Context::establish(Scope::User) {
+//         Ok(ctx) => ctx,
+//         Err(err) => {
+//             eprintln!("Failed to establish context: {}", err);
+//             return;
+//         }
+//     };
+//     let mut old_readers = 0;
+//     loop {
+//         // List available readers.
+//         let mut readers_buf = [0; 2048];
+//         match ctx.list_readers_len() {
+//             Ok(len) => {
+//                 if len == old_readers {
+//                     std::thread::sleep(std::time::Duration::from_secs(1));
+//                     continue;
+//                 }
+//                 old_readers = len;
+//             }
+//             Err(err) => {
+//                 eprintln!("Failed to list readers: {}", err);
+//                 continue;
+//             }
+//         }
+//         let mut readers = match ctx.list_readers(&mut readers_buf) {
+//             Ok(readers) => readers,
+//             Err(err) => {
+//                 eprintln!("Failed to list readers: {}", err);
+//                 continue;
+//             }
+//         };
 
-        if old_readers == 0 {
-            println!("No smart card readers found.");
-        } else {
-            println!("Smart card readers:");
-            loop {
-                let reader = match readers.next() {
-                    Some(reader) => reader,
-                    None => {
-                        break;
-                    }
-                };
-                println!("{:?}", reader);
-            }
-        }
-    }
-}
+//         if old_readers == 0 {
+//             println!("No smart card readers found.");
+//         } else {
+//             println!("Smart card readers:");
+//             loop {
+//                 let reader = match readers.next() {
+//                     Some(reader) => reader,
+//                     None => {
+//                         break;
+//                     }
+//                 };
+//                 println!("{:?}", reader);
+//             }
+//         }
+//     }
+// }
