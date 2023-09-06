@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div class="p-3 pr-3">
-			<button class="shadow-md p-1 shadow-gray-600">Stampa podataka</button>
+			<button class="shadow-md p-1 shadow-gray-600">Штампа података</button>
 		</div>
 	</div>
 	<div class="h-[50%] flex w-full p-2 space-x-2">
@@ -48,58 +48,56 @@
 			{/if}
 		</div>
 		<div class="m-1 p-2 border border-gray-400 rounded-lg w-[900px] space-y-1">
-			<h3>Podaci o građaninu</h3>
+			<h3>Подаци о грађанину</h3>
 			<div class="flex w-fulls text-left space-x-2">
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%]"
-					>First name</label
-				>
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[30%]">Име</label>
 				<input
 					type="text"
 					id="first_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[70%] p-0.5 pl-2 cursor-text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[65%] p-0.5 pl-2 cursor-text"
 					value={info.GivenName}
 					disabled
 				/>
 			</div>
 			<div class="flex w-fulls text-left space-x-2">
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%]"
-					>Last name</label
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[30%]"
+					>Презиме</label
 				>
 				<input
 					type="text"
 					id="first_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[70%] p-0.5 pl-2 cursor-text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[65%] p-0.5 pl-2 cursor-text"
 					value={info.Surname}
 					disabled
 				/>
 			</div>
 			<div class="flex w-fulls text-left space-x-2">
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%]"
-					>Parent name</label
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[30%]"
+					>Име родитеља</label
 				>
 				<input
 					type="text"
 					id="first_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[70%] p-0.5 pl-2 cursor-text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[65%] p-0.5 pl-2 cursor-text"
 					value={info.ParentGivenName}
 					disabled
 				/>
 			</div>
 			<div class="flex w-fulls text-left space-x-2">
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%]"
-					>Date of birth</label
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[30%]"
+					>Датум рођења</label
 				>
 				<input
 					type="text"
 					id="first_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[70%] p-0.5 pl-2 cursor-text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[65%] p-0.5 pl-2 cursor-text"
 					value={info.DateOfBirth}
 					disabled
 				/>
 			</div>
 			<div>
 				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto"
-					>Place, State and Country of birth</label
+					>Место, општина и држава рођења</label
 				>
 				<input
 					type="text"
@@ -110,8 +108,7 @@
 				/>
 			</div>
 			<div>
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto"
-					>Living address</label
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Пребивалиште</label
 				>
 				<input
 					type="text"
@@ -123,7 +120,7 @@
 			</div>
 			<div class="flex w-fulls text-left space-x-2">
 				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[45%]"
-					>Date of address update</label
+					>Датум промене адресе</label
 				>
 				<input
 					type="text"
@@ -136,7 +133,7 @@
 			<div class="flex">
 				<div class="flex">
 					<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%] ml-[-3px]"
-						>JMBG</label
+						>ЈМБГ</label
 					>
 					<input
 						type="text"
@@ -148,7 +145,7 @@
 				</div>
 				<div class="flex">
 					<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[25%] mr-[-1px]"
-						>Sex</label
+						>Пол</label
 					>
 					<input
 						type="text"
@@ -164,7 +161,7 @@
 	<div class="flex mx-3 p-2 border border-gray-400 rounded-lg col-span-4">
 		<div>
 			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto"
-				>Issuing Authority</label
+				>Документ издаје</label
 			>
 			<input
 				type="text"
@@ -175,7 +172,8 @@
 			/>
 		</div>
 		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Document No.</label>
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Број документа</label
+			>
 			<input
 				type="text"
 				id="first_name"
@@ -185,7 +183,8 @@
 			/>
 		</div>
 		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Issuing Date</label>
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Датум издавања</label
+			>
 			<input
 				type="text"
 				id="first_name"
@@ -195,9 +194,7 @@
 			/>
 		</div>
 		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto"
-				>Expiration Date</label
-			>
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Важи до</label>
 			<input
 				type="text"
 				id="first_name"

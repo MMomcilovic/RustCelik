@@ -56,15 +56,15 @@
 		{#if readerFound}
 			{#if cardInserted}
 				{#if infoRead}
-					<h1>Card info read</h1>
+					<h1 class="text-green-500">Картица прочитана!</h1>
 				{:else}
-					<h1>Waiting for card info</h1>
+					<h1>Чекам податке са картице!</h1>
 				{/if}
 			{:else}
-				<h1>No card detected! Insert your card.</h1>
+				<h1 class="text-yellow-400">Картица није детектована! Убаците картицу.</h1>
 			{/if}
 		{:else}
-			<h1>Reader not found. Connect valid reader.</h1>
+			<h1 class="text-yellow-400">Читач није пронађен. Повежите валидан читач.</h1>
 		{/if}
 	</div>
 </div>
