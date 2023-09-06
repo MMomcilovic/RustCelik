@@ -55,7 +55,7 @@
 		"windows": [
 			{
 				"fullscreen": false,
-				"height": 600,
+				"height": 650,
 				"width": 650,
 				"resizable": false,
 				"title": "RustCelik"

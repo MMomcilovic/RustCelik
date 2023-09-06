@@ -6,30 +6,26 @@
 	import { onMount } from 'svelte';
 
 	let info: personalId = {
-		DocRegNo: 'String',
-		IssuingDate: 'String',
-		ExpiryDate: 'String',
-		IssuingAuthority: 'tring',
-		PersonalNumber: 'String',
-		Surname: 'String',
-		GivenName: 'String',
-		ParentGivenName: 'String',
-		Sex: 'String',
-		PlaceOfBirth: 'String',
-		CommunityOfBirth: 'String',
-		StateOfBirth: 'String',
-		DateOfBirth: 'n',
-		State: 'String',
-		Community: 'String',
-		Place: 'String',
-		Street: 'String',
-		HouseNumber: 'String',
-		HouseLetter: 'String',
-		Entrance: 'String',
-		Floor: 'String',
-		AppartmentNumber: 'String',
-		AddressDate: 'String',
-		Image: 'String'
+		DocRegNo: '010831794',
+		IssuingDate: '20.07.2020',
+		ExpiryDate: '20.07.2030',
+		IssuingAuthority: 'ПС У ТИТЕЛУ',
+		PersonalNumber: '2501001774510',
+		Surname: 'MOMЧИЛОВИЋ',
+		GivenName: 'МИЛАДИН',
+		ParentGivenName: 'BOŽO',
+		Sex: 'M',
+		PlaceOfBirth: 'LJUBOVIJA',
+		CommunityOfBirth: 'LJUBOVIJA',
+		StateOfBirth: 'REPUBLIKA SRBIJA',
+		DateOfBirth: '25.01.2001',
+		State: 'SRB',
+		Community: 'TITEL',
+		Place: 'TITEL',
+		Street: 'SVETOZARA MILETIĆA',
+		HouseNumber: '096',
+		AddressDate: '20.07.2020.',
+		Image: ''
 	};
 
 	let infoRead = false;
@@ -56,10 +52,11 @@
 
 <div class="h-[100%]">
 	<div class="text-center h-[100%]">
+		<UserInfo {info} />
 		{#if readerFound}
 			{#if cardInserted}
 				{#if infoRead}
-					<UserInfo {info} />
+					<h1>Card info read</h1>
 				{:else}
 					<h1>Waiting for card info</h1>
 				{/if}
@@ -67,7 +64,6 @@
 				<h1>No card detected! Insert your card.</h1>
 			{/if}
 		{:else}
-			<UserInfo {info} />
 			<h1>Reader not found. Connect valid reader.</h1>
 		{/if}
 	</div>

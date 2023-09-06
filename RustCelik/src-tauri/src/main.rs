@@ -80,7 +80,7 @@ fn card_info(window: Window) {
                 continue;
             }
         };
-        if counter > 200 {
+        if counter > 30 {
             info_sent = false;
             counter = 0;
         }

@@ -17,10 +17,6 @@ export type personalId = {
 	Place: string;
 	Street: string;
 	HouseNumber: string;
-	HouseLetter: string;
-	Entrance: string;
-	Floor: string;
-	AppartmentNumber: string;
 	AddressDate: string;
 	Image: string;
 };
