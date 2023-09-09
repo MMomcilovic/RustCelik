@@ -2,8 +2,17 @@
 	import { invoke } from '@tauri-apps/api/tauri';
 	import { onMount } from 'svelte';
 	import type { personalId } from '../types/personalId.type';
+	import PrintPdf from './PrintPdf.svelte';
 
 	export let info: personalId;
+	$: BirthPlace =
+		info.CommunityOfBirth !== ''
+			? `${info.PlaceOfBirth}, ${info.CommunityOfBirth}, ${info.StateOfBirth}`
+			: '';
+	$: LivingPlace =
+		info.Community !== ''
+			? `${info.Community}, ${info.Place}, ${info.Street} ${info.HouseNumber}`
+			: '';
 </script>
 
 <div class="h-[100%] w-full text-sm p-2">
@@ -31,9 +40,7 @@
 				<p>IDENTITY CARD</p>
 			</div>
 		</div>
-		<div class="p-3 pr-3">
-			<button class="shadow-md p-1 shadow-gray-600">Штампа података</button>
-		</div>
+		<div class="p-3 pr-3" />
 	</div>
 	<div class="h-[50%] flex w-full p-2 space-x-2">
 		<div class="p-1 w-[660px] h-[340px]">
@@ -47,7 +54,7 @@
 				<div class="w-full h-full rounded-sm bg-gray-300" />
 			{/if}
 		</div>
-		<div class="m-1 p-2 border border-gray-400 rounded-lg w-[900px] space-y-1">
+		<div class="m-1 p-2 border border-gray-400 rounded-lg w-[900px] space-y-1 text-sm">
 			<h3>Подаци о грађанину</h3>
 			<div class="flex w-fulls text-left space-x-2">
 				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[30%]">Име</label>
@@ -103,7 +110,7 @@
 					type="text"
 					id="first_name"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[95%] p-0.5 pl-2 mx-2 cursor-text"
-					value={`${info.PlaceOfBirth}, ${info.CommunityOfBirth}, ${info.StateOfBirth}`}
+					value={BirthPlace}
 					disabled
 				/>
 			</div>
@@ -114,7 +121,7 @@
 					type="text"
 					id="first_name"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[95%] p-0.5 pl-2 mx-2 cursor-text"
-					value={`${info.Community}, ${info.Place}, ${info.Street} ${info.HouseNumber}`}
+					value={LivingPlace}
 					disabled
 				/>
 			</div>
@@ -158,43 +165,45 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex mx-3 p-2 border border-gray-400 rounded-lg col-span-4">
-		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto"
+	<div class="flex mx-3 p-2 border border-gray-400 rounded-lg">
+		<div class="w-[35%] text-left">
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3"
 				>Документ издаје</label
 			>
 			<input
 				type="text"
 				id="first_name"
-				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[90%] p-0.5 pl-2 mx-2 cursor-text"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[91%] p-0.5 pl-2 mx-2 cursor-text"
 				value={info.IssuingAuthority}
 				disabled
 			/>
 		</div>
-		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Број документа</label
+		<div class="w-[21%] text-left">
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3"
+				>Број документа</label
 			>
 			<input
 				type="text"
 				id="first_name"
-				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[95%] p-0.5 pl-2 mx-2 cursor-text"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[90%] p-0.5 pl-2 mx-2 cursor-text"
 				value={info.DocRegNo}
 				disabled
 			/>
 		</div>
-		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Датум издавања</label
+		<div class="w-[21%] text-left ml-1">
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3"
+				>Датум издавања</label
 			>
 			<input
 				type="text"
 				id="first_name"
-				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[95%] p-0.5 pl-2 mx-2 cursor-text"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[90%] p-0.5 pl-2 mx-2 cursor-text"
 				value={info.IssuingDate}
 				disabled
 			/>
 		</div>
-		<div>
-			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto">Важи до</label>
+		<div class="w-[21%] text-left ml-1">
+			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3">Важи до</label>
 			<input
 				type="text"
 				id="first_name"

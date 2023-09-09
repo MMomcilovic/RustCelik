@@ -46,8 +46,16 @@
 			cardInserted = true;
 			infoRead = true;
 			info = JSON.parse(e.payload);
+			info.DateOfBirth = formatDate(info.DateOfBirth);
+			info.AddressDate = formatDate(info.AddressDate);
+			info.IssuingDate = formatDate(info.IssuingDate);
+			info.ExpiryDate = formatDate(info.ExpiryDate);
 		});
 	});
+
+	function formatDate(date: string) {
+		return `${date.slice(0, 2)}.${date.slice(2, 4)}.${date.slice(4)}.`;
+	}
 </script>
 
 <div class="h-[100%]">
