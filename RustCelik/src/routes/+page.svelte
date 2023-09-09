@@ -25,12 +25,16 @@
 		Street: '',
 		HouseNumber: '',
 		AddressDate: '',
+		Entrance: '',
+		Floor: '',
+		AppartmentNumber: '',
 		Image: ''
 	};
 
 	let infoRead = false;
 	let cardInserted = false;
 	let readerFound = false;
+	let readingError = false;
 
 	onMount(async () => {
 		await listen('card_info', (e: Event<any>) => {
@@ -43,8 +47,13 @@
 				cardInserted = false;
 				return;
 			}
+			if (e.payload === 'Error while reading card!') {
+				readingError = true;
+				return;
+			}
 			cardInserted = true;
 			infoRead = true;
+			readingError = false;
 			info = JSON.parse(e.payload);
 			info.DateOfBirth = formatDate(info.DateOfBirth);
 			info.AddressDate = formatDate(info.AddressDate);
@@ -68,6 +77,8 @@
 				{:else}
 					<h1>Чекам податке са картице!</h1>
 				{/if}
+			{:else if readingError}
+				<h1 class="text-yellow-400">Грешка приликом читања картице! Поново убаците картицу.</h1>
 			{:else}
 				<h1 class="text-yellow-400">Картица није детектована! Убаците картицу.</h1>
 			{/if}

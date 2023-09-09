@@ -1,17 +1,19 @@
 <script lang="ts">
-	import { invoke } from '@tauri-apps/api/tauri';
-	import { onMount } from 'svelte';
 	import type { personalId } from '../types/personalId.type';
 	import PrintPdf from './PrintPdf.svelte';
 
 	export let info: personalId;
 	$: BirthPlace =
 		info.CommunityOfBirth !== ''
-			? `${info.PlaceOfBirth}, ${info.CommunityOfBirth}, ${info.StateOfBirth}`
+			? `${info.PlaceOfBirth}, ${info.CommunityOfBirth ? info.CommunityOfBirth : ''}, ${
+					info.StateOfBirth
+			  }`
 			: '';
 	$: LivingPlace =
 		info.Community !== ''
-			? `${info.Community}, ${info.Place}, ${info.Street} ${info.HouseNumber}`
+			? `${info.Community}, ${info.Place}, ${info.Street} ${info.HouseNumber}${
+					info.Floor ? '/' + info.Floor : ''
+			  }${info.AppartmentNumber ? '/' + info.AppartmentNumber : ''}`
 			: '';
 </script>
 
@@ -40,7 +42,9 @@
 				<p>IDENTITY CARD</p>
 			</div>
 		</div>
-		<div class="p-3 pr-3" />
+		<div class="p-3 pr-3">
+			<PrintPdf {info} />
+		</div>
 	</div>
 	<div class="h-[50%] flex w-full p-2 space-x-2">
 		<div class="p-1 w-[660px] h-[340px]">

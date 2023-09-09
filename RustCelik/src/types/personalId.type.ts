@@ -18,5 +18,8 @@ export type personalId = {
 	Street: string;
 	HouseNumber: string;
 	AddressDate: string;
+	Entrance: string;
+	Floor: string;
+	AppartmentNumber: string;
 	Image: string;
 };
