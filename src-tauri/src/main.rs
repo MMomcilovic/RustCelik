@@ -76,6 +76,7 @@ fn card_info(window: Window) {
     };
     std::thread::spawn(move || loop {
         std::thread::sleep(std::time::Duration::from_secs(1));
+        // Remove disconnected readers.
         fn is_dead(rs: &ReaderState) -> bool {
             rs.event_state().intersects(State::UNKNOWN | State::IGNORE)
         }
@@ -91,13 +92,9 @@ fn card_info(window: Window) {
         }
         reader_states.retain(|rs| !is_dead(rs));
 
-        if ctx.list_readers_len().unwrap() < 40 {
-            window.emit("card_info", "No reader found").unwrap();
-            card_read = false;
-            continue;
-        }
         let mut readers_buf = [0; 2048];
 
+        // List readers.
         let readers = match ctx.list_readers(&mut readers_buf) {
             Ok(readers) => readers,
             Err(err) => {
@@ -135,6 +132,7 @@ fn card_info(window: Window) {
             }
         };
         if reader_states.len() > 1 && !card_read {
+            let mut reader_valid = true;
             // Connect to the card.
             let result = ctx.connect(reader, ShareMode::Shared, Protocols::ANY);
             let card = match result {
@@ -156,21 +154,29 @@ fn card_info(window: Window) {
                     continue;
                 }
             };
-
-            let mut personal_id = PersonalId::new(&card).unwrap();
-            personal_id.read_id(&card).unwrap_or_else(|_| {
-                let _ = window.emit("card_info", "Error while reading card!");
-            });
-            card_read = true;
-            println!("Sending card info to frontend");
-            window
-                .emit(
-                    "card_info",
-                    serde_json::from_str::<serde_json::Value>(&personal_id.to_json())
-                        .unwrap()
-                        .to_string(),
-                )
-                .unwrap();
+            let _buffer = match card.get_attribute_owned(Attribute::AtrString) {
+                Err(_) => {
+                    let _ = window.emit("card_info", "No reader found").unwrap();
+                    reader_valid = false;
+                }
+                _ => (),
+            };
+            if reader_valid {
+                let mut personal_id = PersonalId::new(&card).unwrap();
+                personal_id.read_id(&card).unwrap_or_else(|_| {
+                    let _ = window.emit("card_info", "Error while reading card!");
+                });
+                card_read = true;
+                println!("Sending card info to frontend");
+                window
+                    .emit(
+                        "card_info",
+                        serde_json::from_str::<serde_json::Value>(&personal_id.to_json())
+                            .unwrap()
+                            .to_string(),
+                    )
+                    .unwrap();
+            }
         }
         // Wait until the state changes.
         ctx.get_status_change(None, &mut reader_states)
