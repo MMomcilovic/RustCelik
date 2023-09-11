@@ -130,13 +130,13 @@
 				/>
 			</div>
 			<div class="flex w-fulls text-left space-x-2">
-				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[45%]"
+				<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto w-[55%]"
 					>Датум промене адресе</label
 				>
 				<input
 					type="text"
 					id="first_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[50%] p-0.5 pl-2 cursor-text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-[40%] p-0.5 pl-2 cursor-text"
 					value={info.AddressDate}
 					disabled
 				/>
@@ -182,7 +182,7 @@
 				disabled
 			/>
 		</div>
-		<div class="w-[21%] text-left">
+		<div class="w-[23%] text-left">
 			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3"
 				>Број документа</label
 			>
@@ -194,7 +194,7 @@
 				disabled
 			/>
 		</div>
-		<div class="w-[21%] text-left ml-1">
+		<div class="w-[24%] text-left ml-1">
 			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3"
 				>Датум издавања</label
 			>
@@ -206,7 +206,7 @@
 				disabled
 			/>
 		</div>
-		<div class="w-[21%] text-left ml-1">
+		<div class="w-[23%] text-left ml-1">
 			<label for="first_name" class="block mb-1 text-sm text-gray-900 my-auto ml-3">Важи до</label>
 			<input
 				type="text"

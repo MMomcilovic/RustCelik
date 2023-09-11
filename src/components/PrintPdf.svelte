@@ -8,6 +8,7 @@
 		const printWindow = window.open(' ', ' ', 'width=600,height=400');
 		printWindow!.document.open();
 		printWindow!.document.write(`
+<html>
 <head>
     <title>Lična Karta</title>
 </head>
@@ -185,9 +186,15 @@ img.profile {
 </body>
 </html>
 	`);
-		setTimeout(function () {
-			printWindow!.print();
-		}, 500);
+		// setTimeout(function () {
+		// 	printWindow!.print();
+		// }, 500);
+		try {
+			// Print for Safari browser
+			printWindow!.document.execCommand('print', false, '');
+		} catch {
+			window.print();
+		}
 		printWindow!.onfocus = function () {
 			setTimeout(function () {
 				printWindow!.close();
