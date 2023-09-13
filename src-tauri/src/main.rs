@@ -1,10 +1,12 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use idreader_lib::module_reader::reader::PersonalId;
+use idreader_lib::module_reader::reader::{PersonalId};
 use pcsc::*;
 use tauri::{CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, Window};
 use tauri_plugin_positioner::{Position, WindowExt};
+use pdfexporter_lib::exporter::pdf;
+use directories::UserDirs;
 
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit").accelerator("Cmd+Q");
@@ -14,6 +16,7 @@ fn main() {
             card_info(app.get_window("main").unwrap());
             Ok(())
         })
+        .invoke_handler(tauri::generate_handler![create_pdf])
         .plugin(tauri_plugin_positioner::init())
         .system_tray(SystemTray::new().with_menu(system_tray_menu))
         .on_system_tray_event(|app, event| {
@@ -62,6 +65,83 @@ fn main() {
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[tauri::command]
+fn create_pdf(app: tauri::AppHandle) {
+    let window = app.get_window("main").unwrap();
+    if let Some(user_dirs) = UserDirs::new() {
+        let path = user_dirs.document_dir();
+        println!("{:?}", path.unwrap().to_str().unwrap());
+        let ctx = match Context::establish(Scope::User) {
+            Ok(ctx) => ctx,
+            Err(_err) => {
+                window.emit("card_info", "Error").unwrap();
+                return;
+            }
+        };
+        let mut readers_buf = [0; 2048];
+
+        // List readers.
+        let _readers = match ctx.list_readers(&mut readers_buf) {
+            Ok(readers) => readers,
+            Err(err) => {
+                eprintln!("Failed to list readers: {}", err);
+                window.emit("card_info", "No reader found").unwrap();
+                return;
+            }
+        };
+        let mut readers = match ctx.list_readers(&mut readers_buf) {
+            Ok(readers) => readers,
+            Err(err) => {
+                eprintln!("Failed to list readers: {}", err);
+                window.emit("card_info", "No reader found").unwrap();
+                return;
+            }
+        };
+                // Use the first reader.
+                let reader = match readers.next() {
+                    Some(reader) => reader,
+                    None => {
+                        return;
+                    }
+                };
+                let mut reader_valid = true;
+                let result = ctx.connect(reader, ShareMode::Shared, Protocols::ANY);
+                let card = match result {
+                    Ok(card) => card,
+                    Err(Error::NoSmartcard) => {
+                        println!("A smartcard is not present in the reader.");
+                        window.emit("card_info", "No card inserted").unwrap();
+                        return;
+                    }
+                    Err(Error::RemovedCard) => {
+                        println!("The card was removed before we could read it.");
+                        window.emit("card_info", "No card inserted").unwrap();
+                        return;
+                    }
+                    Err(err) => {
+                        eprintln!("Failed to connect to card: {}", err);
+                        return;
+                    }
+                };
+                let _buffer = match card.get_attribute_owned(Attribute::AtrString) {
+                    Err(_) => {
+                        let _ = window.emit("card_info", "No reader found").unwrap();
+                        reader_valid = false;
+                    }
+                    _ => (),
+                };
+                if reader_valid {
+                    let mut personal_id = PersonalId::new(&card).unwrap();
+                    personal_id.read_id(&card).unwrap_or_else(|_| {
+                        let _ = window.emit("card_info", "Error while reading card!");
+                    });
+                    pdf::copy_font();
+                    let _ = pdf::topdf(&personal_id, path.unwrap().to_str().unwrap());
+                    let _ = window.emit("card_info", "Doc saved!");
+                };
+                }
 }
 
 fn card_info(window: Window) {

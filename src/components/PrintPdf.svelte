@@ -1,12 +1,17 @@
 <script lang="ts">
 	import type { personalId } from '../types/personalId.type';
+  import { invoke } from '@tauri-apps/api/tauri'
 
-	let customData = 'This is custom data to be printed.';
 	export let info: personalId;
 
 	function printCustomData() {
-		const printWindow = window.open(' ', ' ', 'width=600,height=400');
-		printWindow!.document.open();
+    let printWindow = window.open();
+    try {
+		  printWindow!.document.open();
+    } catch {
+      invoke('create_pdf');
+      return;
+    }
 		printWindow!.document.write(`
 <html>
 <head>
@@ -186,15 +191,9 @@ img.profile {
 </body>
 </html>
 	`);
-		// setTimeout(function () {
-		// 	printWindow!.print();
-		// }, 500);
-		try {
-			// Print for Safari browser
-			printWindow!.document.execCommand('print', false, '');
-		} catch {
-			window.print();
-		}
+		setTimeout(function () {
+			printWindow!.print();
+		}, 500);
 		printWindow!.onfocus = function () {
 			setTimeout(function () {
 				printWindow!.close();
