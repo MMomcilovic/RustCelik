@@ -20,6 +20,8 @@ tauri = { version = "1.4.0", features = ["system-tray"] }
 pcsc = { version = "2.8.0" }
 tauri-plugin-positioner = { version = "1.0.4", features = ["system-tray"] }
 idreader_lib = { git = "https://github.com/lazarbankovic/serbianIdReader", branch = "refactor_to_lib"}
+pdfexporter_lib = { git = "https://github.com/lazarbankovic/serbianIdReader", branch = "refactor_to_lib" }
+directories = "5.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
