@@ -3235,7 +3235,7 @@ dependencies = [
 
 [[package]]
 name = "rust_celik"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "directories",
  "idreader_lib",

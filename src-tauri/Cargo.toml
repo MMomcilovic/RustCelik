@@ -1,6 +1,6 @@
 [package]
 name = "rust_celik"
-version = "0.1.1"
+version = "0.1.2"
 description = "RustCelik app for reading serbian ID cards"
 authors = ["Miladin Momcilovic"]
 license = "MIT License"
